@@ -1,9 +1,15 @@
 #### Commands
 
-```bash
+```powershell
 # install ArgoCD in k8s
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# check ArgoCD Namespace
+kubectl get pod -n argocd
+
+# restart ArgoCD
+kubectl rollout restart deployment argocd-server -n argocd
 
 # access ArgoCD UI
 kubectl get svc -n argocd
@@ -16,3 +22,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ```
 </br>
+
+
+
