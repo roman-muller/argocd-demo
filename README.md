@@ -1,4 +1,4 @@
-#### Commands
+## 📝 Commands
 
 ```powershell
 # install ArgoCD in k8s
@@ -26,45 +26,34 @@ $base64 = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="
 kubectl -n argocd rollout restart deployment argocd-server
 
 ```
-</br>
 
-#### Install zscaler cert for minikube
+## 🔐 Install Zscaler Cert in Minikube
+### Export the Zscaler root certificate:
+1. Run certmgr.msc
+2. Go to Trusted Root Certification Authorities → Certificates
+3. Find Zscaler cert → Right-click → All Tasks → Export
+4. Choose: Base-64 encoded X.509 (.CER)
+5. Save as: zscaler.crt
 
-🔐 Install Zscaler Cert in Minikube (Windows Checklist)
-1. Export the Zscaler root certificate:
-    - Run certmgr.msc
-    - Go to Trusted Root Certification Authorities → Certificates
-    - Find Zscaler cert → Right-click → All Tasks → Export
-    - Choose: Base-64 encoded X.509 (.CER)
-    - Save as: zscaler.crt
-
-2. Create folder in Minikube:
-
-```powershell
-minikube ssh "sudo mkdir -p /usr/local/share/ca-certificates/zscaler"
-```
-3. Copy cert into Minikube:
-```powershell
-minikube cp .\zscaler.crt /usr/local/share/ca-certificates/zscaler/zscaler.crt
-```
-
-4. SSH into Minikube & trust the cert:
+<br/>
 
 ```bash
+# Create folder in Minikube:
+minikube ssh "sudo mkdir -p /usr/local/share/ca-certificates/zscaler"
+
+# Copy cert into Minikube:
+minikube cp .\zscaler.crt /usr/local/share/ca-certificates/zscaler/zscaler.crt
+
+# SSH into Minikube & trust the cert:
 minikube ssh
 
 sudo update-ca-certificates
 sudo systemctl restart docker
 exit
-```
 
-6. Test it
-
-```bash
+# Test it
 minikube ssh
 
 curl https://registry.k8s.io/
+# You should get output and not a certificate error
 ```
-You should get output and not a certificate error.
-
-</br>
