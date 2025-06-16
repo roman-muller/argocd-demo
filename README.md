@@ -1,6 +1,9 @@
 ## 📝 Commands
 
 ```powershell
+# minikube
+minikube start
+
 # install ArgoCD in k8s
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -24,6 +27,9 @@ $base64 = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="
 
 # restart ArgoCD
 kubectl -n argocd rollout restart deployment argocd-server
+
+# deploy application.yaml
+kubectl apply -f application.yaml
 
 ```
 
