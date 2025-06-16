@@ -24,12 +24,17 @@ Start-Process powershell -ArgumentList 'kubectl port-forward svc/argocd-server 8
 $base64 = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}"
 [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($base64))
 
-
 # restart ArgoCD
 kubectl -n argocd rollout restart deployment argocd-server
 
 # deploy application.yaml
 kubectl apply -f application.yaml
+
+# sync with the cli
+argocd app sync myapp-argo-application
+
+# check status
+argocd app get myapp-argo-application
 
 ```
 
