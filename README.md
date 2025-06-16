@@ -27,6 +27,9 @@ $base64 = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="
 # restart ArgoCD
 kubectl -n argocd rollout restart deployment argocd-server
 
+# add repo with CLI
+argocd repo add https://github.com/roman-muller/argocd-demo.git --username <github_username> --password <github_pat> --insecure-ignore-host-key
+
 # deploy application.yaml
 kubectl apply -f application.yaml
 
@@ -35,6 +38,9 @@ argocd app sync myapp-argo-application
 
 # check status
 argocd app get myapp-argo-application
+
+# change deployment ok k8s -> argocd should pick it up and revert it
+kubectl edit deployment -n myapp myapp
 
 ```
 
