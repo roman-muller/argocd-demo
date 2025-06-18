@@ -48,6 +48,9 @@ kubectl edit deployment -n myapp myapp
 
 ```
 
+# 📊 ArgoCD Presentation
+https://roman-muller.github.io/argocd-presentation/#/
+
 ## 🔐 Install Zscaler Cert in Minikube
 ### Export the Zscaler root certificate:
 1. Run certmgr.msc
