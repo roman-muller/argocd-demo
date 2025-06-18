@@ -16,6 +16,7 @@ kubectl rollout restart deployment argocd-server -n argocd
 
 # access ArgoCD UI
 kubectl get svc -n argocd
+
 #kubectl port-forward svc/argocd-server 8080:443 -n argocd
 Start-Process powershell -ArgumentList 'kubectl port-forward svc/argocd-server 8080:443 -n argocd'
 
@@ -24,8 +25,8 @@ Start-Process powershell -ArgumentList 'kubectl port-forward svc/argocd-server 8
 $base64 = kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}"
 [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($base64))
 
-# restart ArgoCD
-kubectl -n argocd rollout restart deployment argocd-server
+# login to ArgoCD CLI
+argocd login localhost:8080 --username admin --password <YOUR_PASSWORD> --insecure
 
 # add repo with CLI
 argocd repo add https://github.com/roman-muller/argocd-demo.git --username <github_username> --password <github_pat> --insecure-ignore-host-key
@@ -39,7 +40,10 @@ argocd app sync myapp-argo-application
 # check status
 argocd app get myapp-argo-application
 
-# change deployment ok k8s -> argocd should pick it up and revert it
+# restart ArgoCD
+kubectl -n argocd rollout restart deployment argocd-server
+
+# change deployment on k8s -> argocd should pick it up and revert it
 kubectl edit deployment -n myapp myapp
 
 ```
