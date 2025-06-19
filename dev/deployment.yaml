@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: nginx:1.25  # You can also use a specific version like nginx:1.25
+        image: nginx:latest  # You can also use a specific version like nginx:1.25
         ports:
         - containerPort: 8080
         resources:
