@@ -40,9 +40,6 @@ argocd app sync myapp-argo-application
 # check status
 argocd app get myapp-argo-application
 
-# restart ArgoCD
-kubectl -n argocd rollout restart deployment argocd-server
-
 # change deployment on k8s -> argocd should pick it up and revert it
 kubectl edit deployment -n myapp myapp
 
